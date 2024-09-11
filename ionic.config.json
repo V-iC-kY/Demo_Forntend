@@ -1,0 +1,8 @@
+{
+  "name": "push_notification",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}
