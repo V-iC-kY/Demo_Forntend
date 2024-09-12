@@ -9,6 +9,10 @@ import { ApiService } from './api.service';
     providedIn: "root",
 })
 export class PushNotificationService {
+
+    token: any
+
+
     constructor(private firebaseX: FirebaseX, private http: HttpClient, private push: Push,
         private platform: Platform, private api: ApiService) { }
 
@@ -35,9 +39,9 @@ export class PushNotificationService {
                 });
         }
         if (this.platform.ANDROID) {
-            let token = await this.firebaseX.getToken();
-            // await this.firebaseX.grantPermission();
-            console.log('Deveice Token', token)
+            this.token = await this.firebaseX.getToken();
+            console.log('Deveice Token', this.token)
+            localStorage.setItem("fcmToken", this.token);
             // this.sendTokenToServer(token);
         }
     }

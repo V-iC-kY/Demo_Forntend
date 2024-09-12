@@ -1,3 +1,58 @@
-<p>
-  login works!
-</p>
+<div class="login-box" *ngIf="loginform">
+  <h2>Login</h2>
+  <form (ngSubmit)="login()">
+    <div class="user-box">
+      <input type="text" name="email" required="" [(ngModel)]="email">
+      <label>Email</label>
+    </div>
+    <div class="user-box">
+      <input type="phoneNumber" name="phoneNumber" required="" [(ngModel)]="phoneNumber">
+      <label>phoneNumber</label>
+    </div>
+    <a (click)="login()">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      LOGIN
+    </a>
+  </form>
+</div>
+
+<div *ngIf="showOTP" class="otp-box">
+  <h3>Enter OTP</h3>
+  <div style="display: flex;column-gap: 20px;">
+    <input type="text" [(ngModel)]="otp" style="width: 25px;">
+    <input type="text" [(ngModel)]="otp" style="width: 25px;">
+    <input type="text" [(ngModel)]="otp" style="width: 25px;">
+    <input type="text" [(ngModel)]="otp" style="width: 25px;">
+  </div>
+  <a (click)="submitOTP()">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    Submit OTP
+  </a>
+</div>
+
+<!-- <div *ngIf="showOtpBox" class="otp-box">
+  <div class="otp-input-container">
+    <div class="user-box">
+      <input type="text" maxlength="1" [(ngModel)]="otp1" required>
+    </div>
+    <div class="user-box">
+      <input type="text" maxlength="1" [(ngModel)]="otp2" required>
+    </div>
+    <div class="user-box">
+      <input type="text" maxlength="1" [(ngModel)]="otp3" required>
+    </div>
+    <div class="user-box">
+      <input type="text" maxlength="1" [(ngModel)]="otp4" required>
+    </div>
+  </div>
+  <a (click)="verifyOtp()">
+    <span></span><span></span><span></span><span></span>
+    VERIFY OTP
+  </a>
+</div> -->

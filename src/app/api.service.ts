@@ -9,7 +9,7 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  private baseUrl = "https://api/"
+  private baseUrl = "http://192.168.29.223:8080/api"
   private AppId: any;
   headers: any;
 
@@ -35,6 +35,10 @@ export class ApiService {
 
   CreateNew(data: any) {
     return this.http.post(this.baseUrl + '/user/create', data);
+  }
+
+  Login(data:any){
+    return this.http.post(this.baseUrl + '/user/login', data);
   }
 
 

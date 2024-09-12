@@ -1,3 +1,26 @@
-<p>
-  home works!
-</p>
+<div class="home-container">
+  <!-- Header Section -->
+  <header class="header">
+    <h1 class="header-title">ChatApp</h1>
+    <div class="header-options">
+      <button class="btn-settings">⚙️</button>
+      <!-- Can replace ⚙️ with an actual icon or image -->
+    </div>
+  </header>
+
+  <!-- Body Section -->
+  <div class="main-content">
+    <button (click)="startNewChat()" class="btn btn-primary">Start New Chat</button>
+
+    <h2>Recent Chats</h2>
+    <ul class="chat-list">
+      <li *ngFor="let chat of recentChats" (click)="openChat(chat.id)">
+        <div class="chat-item">
+          <strong>{{ chat.name }}</strong>
+          <p>{{ chat.lastMessage }}</p>
+          <span>{{ chat.time }}</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
