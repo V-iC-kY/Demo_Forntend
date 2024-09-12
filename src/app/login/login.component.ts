@@ -7,8 +7,6 @@ import { ApiService } from '../api.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  fcmToken: any;
-
 
   constructor(private api: ApiService) { }
 
@@ -29,17 +27,17 @@ export class LoginComponent {
         "email": this.email,
         "phoneNumber": this.phoneNumber
       },
-      "FCMmodel": {
-        "fcmtoken": this.fcmToken = localStorage.getItem("fcmToken")
+      "fcmModel": {
+        "fcmtoken": localStorage.getItem("fcmToken")
       }
     }
-    console.log(post);
-    
+    console.log("post", post);
+
     this.api.Login(post).subscribe({
       next: (res => {
-        console.log(res);
+        console.log("res", res);
       }), error: (err => {
-        console.log(err);
+        console.log("HTTP Error:", err.message);
       })
     })
     this.showOTP = true;
@@ -54,5 +52,6 @@ export class LoginComponent {
     this.email = '';
     this.phoneNumber = '';
     this.otp = '';
+
   }
 }

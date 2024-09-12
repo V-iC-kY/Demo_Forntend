@@ -10,6 +10,18 @@
     "cordova-plugin-device": {
       "PACKAGE_NAME": "io.push_notification"
     },
+    "cordova-plugin-ionic-keyboard": {
+      "PACKAGE_NAME": "io.push_notification"
+    },
+    "cordova-plugin-ionic-webview": {
+      "PACKAGE_NAME": "io.push_notification"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "io.push_notification"
+    },
+    "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "io.push_notification"
+    },
     "cordova-plugin-firebasex": {
       "FIREBASE_ANALYTICS_COLLECTION_ENABLED": "true",
       "FIREBASE_PERFORMANCE_COLLECTION_ENABLED": "true",
@@ -40,18 +52,6 @@
       "ANDROID_GSON_VERSION": "2.9.0",
       "ANDROID_FIREBASE_PERF_GRADLE_PLUGIN_VERSION": "1.4.2",
       "ANDROID_GRPC_OKHTTP": "1.46.0",
-      "PACKAGE_NAME": "io.push_notification"
-    },
-    "cordova-plugin-ionic-keyboard": {
-      "PACKAGE_NAME": "io.push_notification"
-    },
-    "cordova-plugin-ionic-webview": {
-      "PACKAGE_NAME": "io.push_notification"
-    },
-    "cordova-plugin-splashscreen": {
-      "PACKAGE_NAME": "io.push_notification"
-    },
-    "cordova-plugin-statusbar": {
       "PACKAGE_NAME": "io.push_notification"
     }
   },
