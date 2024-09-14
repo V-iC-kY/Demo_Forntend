@@ -1,57 +1,95 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
-  constructor(private api: ApiService) { }
-
-  email: string = '';
-  phoneNumber: string = '';
+  loginForm: any;
+  otpForm: any;
   showOTP: boolean = false;
-  loginform: boolean = true
-  showOtpBox: boolean = false
-  otp: string = '';
-  otp1: any;
-  otp2: any;
-  otp3: any;
-  otp4: any;
+  showError: boolean = false;
+
+  constructor(private api: ApiService, private fb: FormBuilder, private router: Router) { }
+
+  ngOnInit(): void {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      phoneNumber: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]]
+    });
+
+    this.otpForm = this.fb.group({
+      otp1: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(1)]],
+      otp2: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(1)]],
+      otp3: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(1)]],
+      otp4: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(1)]]
+    });
+  }
 
   login() {
-    let post = {
-      "userModel": {
-        "email": this.email,
-        "phoneNumber": this.phoneNumber
-      },
-      "fcmModel": {
-        "fcmtoken": localStorage.getItem("fcmToken")
-      }
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      return;
     }
-    console.log("post", post);
+
+    const post = {
+      userModel: {
+        email: this.loginForm.value.email,
+        phoneNumber: this.loginForm.value.phoneNumber
+      },
+      fcmModel: {
+        fcmtoken: localStorage.getItem("fcmToken")
+      }
+    };
 
     this.api.Login(post).subscribe({
-      next: (res => {
-        console.log("res", res);
-      }), error: (err => {
-        console.log("HTTP Error:", err.message);
-      })
-    })
+      next: (res) => {
+        this.showOTP = true;
+        this.showError = false;
+        this.loginForm = false
+      },
+      error: (err) => {
+        this.showError = true;
+        console.error("HTTP Error:", err.message);
+      }
+    });
     this.showOTP = true;
-    this.loginform = false
-    this.showOtpBox = true
+    this.loginForm = false
   }
 
   submitOTP() {
-    console.log('OTP submitted:', this.otp);
-    this.showOTP = false;
-    this.loginform = true
-    this.email = '';
-    this.phoneNumber = '';
-    this.otp = '';
+    if (this.otpForm.invalid) {
+      console.log('OTP form is invalid');
+      this.otpForm.markAllAsTouched();
+      return;
+    }
 
+    const otp = `${this.otpForm.value.otp1}${this.otpForm.value.otp2}${this.otpForm.value.otp3}${this.otpForm.value.otp4}`;
+    console.log('OTP submitted:', otp);
+
+    this.showOTP = false;
+    this.otpForm.reset();
+
+    this.router.navigate(['/home']);
+  }
+
+  moveFocus(event: Event, nextField: string | null) {
+    const input = event.target as HTMLInputElement;
+
+    if (nextField) {
+      const nextInput = document.querySelector(`[formControlName="${nextField}"]`) as HTMLInputElement;
+      if (nextInput) {
+        nextInput.focus();
+      }
+    }
+  }
+
+  signUp() {
+    this.router.navigate(['/signup']);
   }
 }

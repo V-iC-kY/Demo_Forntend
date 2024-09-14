@@ -1,26 +1,51 @@
-<div class="home-container">
-  <!-- Header Section -->
-  <header class="header">
-    <h1 class="header-title">ChatApp</h1>
-    <div class="header-options">
-      <button class="btn-settings">⚙️</button>
-      <!-- Can replace ⚙️ with an actual icon or image -->
-    </div>
-  </header>
-
-  <!-- Body Section -->
-  <div class="main-content">
-    <button (click)="startNewChat()" class="btn btn-primary">Start New Chat</button>
-
-    <h2>Recent Chats</h2>
-    <ul class="chat-list">
-      <li *ngFor="let chat of recentChats" (click)="openChat(chat.id)">
-        <div class="chat-item">
-          <strong>{{ chat.name }}</strong>
-          <p>{{ chat.lastMessage }}</p>
-          <span>{{ chat.time }}</span>
-        </div>
-      </li>
-    </ul>
+<div style="background-color: #fdf5e2;">
+<div class="header" [ngClass]="{ 'dark-mode': isDarkMode }">
+  <div class="app-name">
+    <img src="../../assets/icon/favicon.png" alt="App Icon" class="app-logo" />
   </div>
+
+
+  <div class="buttons">
+    <div class="search-container">
+      <i class="fas fa-search search-icon" (click)="toggleSearchBox()"></i>
+      <div *ngIf="showSearchBox" class="search-box">
+        <input type="text" placeholder="Search..." />
+      </div>
+    </div>
+    <i class="fas fa-sun dark-mode-icon" (click)="toggleDarkMode()" *ngIf="!isDarkMode"></i>
+    <i class="fas fa-moon dark-mode-icon" (click)="toggleDarkMode()" *ngIf="isDarkMode"></i>
+    <i class="fas fa-cog settings-icon"></i>
+  </div>
+</div>
+
+
+<div class="content-list">
+  <div class="content-item" *ngFor="let item of contentList">
+    <div class="content-header">
+      <h2>{{ item.title }}</h2>
+    </div>
+    <div class="content-body">
+      <p>{{ item.description }}</p>
+    </div>    
+  </div>
+</div>
+
+<div class="chat-page">
+  <h2>Chat with {{ contactTitle }}</h2>
+  
+  <div class="chat-container">
+    <div class="messages" #messageContainer>
+      <div *ngFor="let msg of messages" [ngClass]="{'sent': msg.sender === 'me', 'received': msg.sender !== 'me'}" class="message">
+        <p>{{ msg.content }}</p>
+      </div>
+    </div>
+
+    <div class="message-input">
+      <input type="text" [(ngModel)]="newMessage" placeholder="Type a message..." (keyup.enter)="sendMessage()" />
+      <button (click)="sendMessage()">Send</button>
+    </div>
+  </div>
+</div>
+
+
 </div>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,24 +6,77 @@ import { Router } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent {
-  recentChats = [
-    { id: 1, name: 'John Doe', lastMessage: 'Hey, how are you?', time: '2:15 PM' },
-    { id: 2, name: 'Jane Smith', lastMessage: 'See you tomorrow!', time: '1:45 PM' },
-    { id: 3, name: 'Bob Johnson', lastMessage: 'What’s up?', time: '12:30 PM' }
+export class HomeComponent implements OnInit {
+
+
+  contentList = [
+    { id: 1, title: 'Content Item 1', description: 'Description for item 1' },
+    { id: 2, title: 'Content Item 2', description: 'Description for item 2' },
+    { id: 3, title: 'Content Item 3', description: 'Description for item 3' },
+    { id: 4, title: 'Content Item 4', description: 'Description for item 4' },
+    { id: 5, title: 'Content Item 5', description: 'Description for item 5' },
+    { id: 6, title: 'Content Item 6', description: 'Description for item 6' },
+    { id: 7, title: 'Content Item 7', description: 'Description for item 7' },
+    { id: 8, title: 'Content Item 8', description: 'Description for item 8' },
+    { id: 9, title: 'Content Item 9', description: 'Description for item 9' },
+    { id: 10, title: 'Content Item 10', description: 'Description for item 10' },
+    { id: 11, title: 'Content Item 11', description: 'Description for item 11' },
+    { id: 12, title: 'Content Item 12', description: 'Description for item 12' },
+    { id: 13, title: 'Content Item 13', description: 'Description for item 13' },
+    { id: 14, title: 'Content Item 14', description: 'Description for item 14' },
+    { id: 15, title: 'Content Item 15', description: 'Description for item 15' },
+    { id: 16, title: 'Content Item 16', description: 'Description for item 16' },
+    { id: 17, title: 'Content Item 17', description: 'Description for item 17' },
+    { id: 18, title: 'Content Item 18', description: 'Description for item 18' },
+    { id: 19, title: 'Content Item 19', description: 'Description for item 19' },
+    { id: 20, title: 'Content Item 20', description: 'Description for item 20' },
   ];
 
+  contactTitle: any;
+  contactDescription: any;
+  newMessage: string = '';
+  messages: { content: string, sender: string }[] = [];
+  @ViewChild('messageContainer') messageContainer!: ElementRef;
+
+  isDarkMode = false;
+  showSearchBox = false;
+
   constructor() { }
+  ngOnInit() {
+    // this.route.queryParams.subscribe(params => {
+    //   this.contactTitle = params['title'];
+    //   this.contactDescription = params['description'];
+    // });
 
-
-
-  startNewChat() {
-    console.log('Starting a new chat...');
-    // Add logic to start a new chat
+    // Example initial chat messages
+    this.messages = [
+      { content: 'Hello!', sender: 'contact' },
+      { content: 'Hi! How are you?', sender: 'me' },
+      { content: 'I’m good, thanks. How about you?', sender: 'contact' }
+    ];
+  }
+  toggleDarkMode() {
+    this.isDarkMode = !this.isDarkMode;
   }
 
-  openChat(chatId: number) {
-    console.log('Opening chat with ID:', chatId);
-    // Add logic to open an existing chat by ID
+  toggleSearchBox() {
+    this.showSearchBox = !this.showSearchBox;
+  }
+  viewDetails(id: number) {
+    console.log('View details for item:', id);
+  }
+
+  sendMessage() {
+    if (this.newMessage.trim()) {
+      this.messages.push({ content: this.newMessage, sender: 'me' });
+      this.newMessage = '';
+      this.scrollToBottom();
+    }
+  }
+
+  scrollToBottom() {
+    setTimeout(() => {
+      this.messageContainer.nativeElement.scrollTop = this.messageContainer.nativeElement.scrollHeight;
+    }, 100);
   }
 }

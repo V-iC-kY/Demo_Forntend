@@ -1,14 +1,25 @@
-<div class="login-box" *ngIf="loginform">
+<div class="login-box" *ngIf="loginForm">
   <h2>Login</h2>
-  <form (ngSubmit)="login()">
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
     <div class="user-box">
-      <input type="text" name="email" required="" [(ngModel)]="email">
+      <input type="text" formControlName="email" required>
       <label>Email</label>
     </div>
-    <div class="user-box">
-      <input type="phoneNumber" name="phoneNumber" required="" [(ngModel)]="phoneNumber">
-      <label>phoneNumber</label>
+    <div *ngIf="loginForm.controls.email.invalid && loginForm.controls.email.touched">
+      <small *ngIf="loginForm.controls.email.errors?.required">Email is required.</small>
+      <small *ngIf="loginForm.controls.email.errors?.email">Invalid email format.</small>
     </div>
+
+    <div class="user-box">
+      <input type="text" formControlName="phoneNumber" required>
+      <label>Phone Number</label>
+    </div>
+    <div *ngIf="loginForm.controls.phoneNumber.invalid && loginForm.controls.phoneNumber.touched">
+      <small *ngIf="loginForm.controls.phoneNumber.errors?.required">Phone number is required.</small>
+      <small *ngIf="loginForm.controls.phoneNumber.errors?.pattern">Invalid phone number.</small>
+      <small *ngIf="loginForm.controls.phoneNumber.errors?.minlength">Phone number must be 10 digits.</small>
+    </div>
+
     <a (click)="login()">
       <span></span>
       <span></span>
@@ -17,42 +28,31 @@
       LOGIN
     </a>
   </form>
+
+  <!-- Sign Up Link/Button -->
+  <div class="signup-link">
+    <p>Don't have an account? <a (click)="signUp()">Sign Up</a></p>
+  </div>
 </div>
 
 <div *ngIf="showOTP" class="otp-box">
   <h3>Enter OTP</h3>
-  <div style="display: flex;column-gap: 20px;">
-    <input type="text" [(ngModel)]="otp" style="width: 25px;">
-    <input type="text" [(ngModel)]="otp" style="width: 25px;">
-    <input type="text" [(ngModel)]="otp" style="width: 25px;">
-    <input type="text" [(ngModel)]="otp" style="width: 25px;">
-  </div>
-  <a (click)="submitOTP()">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    Submit OTP
-  </a>
+  <form [formGroup]="otpForm" (ngSubmit)="submitOTP()">
+    <div style="display: flex; column-gap: 20px;">
+      <input type="text" formControlName="otp1" maxlength="1" (input)="moveFocus($event, 'otp2')">
+      <input type="text" formControlName="otp2" maxlength="1" (input)="moveFocus($event, 'otp3')">
+      <input type="text" formControlName="otp3" maxlength="1" (input)="moveFocus($event, 'otp4')">
+      <input type="text" formControlName="otp4" maxlength="1" (input)="moveFocus($event, null)">
+    </div>
+    <div *ngIf="otpForm.invalid && otpForm.touched" class="error-message">
+      Please fill OTP fields.
+    </div>
+    <a (click)="submitOTP()">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      SUBMIT OTP
+    </a>
+  </form>
 </div>
-
-<!-- <div *ngIf="showOtpBox" class="otp-box">
-  <div class="otp-input-container">
-    <div class="user-box">
-      <input type="text" maxlength="1" [(ngModel)]="otp1" required>
-    </div>
-    <div class="user-box">
-      <input type="text" maxlength="1" [(ngModel)]="otp2" required>
-    </div>
-    <div class="user-box">
-      <input type="text" maxlength="1" [(ngModel)]="otp3" required>
-    </div>
-    <div class="user-box">
-      <input type="text" maxlength="1" [(ngModel)]="otp4" required>
-    </div>
-  </div>
-  <a (click)="verifyOtp()">
-    <span></span><span></span><span></span><span></span>
-    VERIFY OTP
-  </a>
-</div> -->
