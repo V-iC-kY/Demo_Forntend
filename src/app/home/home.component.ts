@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
 
 
   contentList = [
@@ -32,6 +32,7 @@ export class HomeComponent implements OnInit {
     { id: 20, title: 'Content Item 20', description: 'Description for item 20' },
   ];
 
+
   contactTitle: any;
   contactDescription: any;
   newMessage: string = '';
@@ -41,20 +42,8 @@ export class HomeComponent implements OnInit {
   isDarkMode = false;
   showSearchBox = false;
 
-  constructor() { }
-  ngOnInit() {
-    // this.route.queryParams.subscribe(params => {
-    //   this.contactTitle = params['title'];
-    //   this.contactDescription = params['description'];
-    // });
+  constructor(private router: Router) { }
 
-    // Example initial chat messages
-    this.messages = [
-      { content: 'Hello!', sender: 'contact' },
-      { content: 'Hi! How are you?', sender: 'me' },
-      { content: 'I’m good, thanks. How about you?', sender: 'contact' }
-    ];
-  }
   toggleDarkMode() {
     this.isDarkMode = !this.isDarkMode;
   }
@@ -62,21 +51,21 @@ export class HomeComponent implements OnInit {
   toggleSearchBox() {
     this.showSearchBox = !this.showSearchBox;
   }
-  viewDetails(id: number) {
-    console.log('View details for item:', id);
+
+  toggleSetting() {
+    this.router.navigate(['/settings']);
   }
 
-  sendMessage() {
-    if (this.newMessage.trim()) {
-      this.messages.push({ content: this.newMessage, sender: 'me' });
-      this.newMessage = '';
-      this.scrollToBottom();
-    }
+  openChat(itemId: number) {
+    this.router.navigate(['/chatpage']);
   }
 
-  scrollToBottom() {
-    setTimeout(() => {
-      this.messageContainer.nativeElement.scrollTop = this.messageContainer.nativeElement.scrollHeight;
-    }, 100);
+  navigateTo(route: string): void {
+    this.router.navigate([route]);
   }
+
+  createPost(): void {
+    console.log('Create post clicked');
+  }
+
 }

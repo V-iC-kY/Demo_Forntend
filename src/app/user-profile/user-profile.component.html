@@ -1,3 +1,62 @@
-<p>
-  user-profile works!
-</p>
+<div class="home-page">
+  <!-- Profile Section -->
+  <div class="profile-section">
+    <div class="profile-header">
+      <img src="../../assets/icon/vj.jpg" alt="Profile Image" class="profile-image" />
+      <div class="profile-info">
+        <h1>vicky</h1>
+        <p>developer</p>
+      </div>
+    </div>
+
+    <div class="profile-stats">
+      <div class="stat-item">
+        <h3>20</h3>
+        <p>Posts</p>
+      </div>
+      <div class="stat-item">
+        <h3>10</h3>
+        <p>Followers</p>
+      </div>
+      <div class="stat-item">
+        <h3>01</h3>
+        <p>Following</p>
+      </div>
+    </div>
+
+    <div class="profile-buttons">
+      <div class="edit-profile-btn" (click)="editProfile()">Edit Profile</div>
+      <div class="message-btn" (click)="message()">Message</div>
+    </div>
+  </div>
+
+
+  <!-- Tab Buttons -->
+  <div class="tab-buttons">
+    <div (click)="toggleView('posts')" [class.active]="currentView === 'posts'">products</div>
+    <div (click)="toggleView('checkout')" [class.active]="currentView === 'checkout'">Checkout List</div>
+  </div>
+
+  <!-- Posts and Checkout Sections -->
+  <div class="content-section">
+    <!-- My Posts -->
+    <div class="posts-section" [class.active]="currentView === 'posts'">
+      <div *ngFor="let post of posts" class="post-item">
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.description }}</p>
+      </div>
+    </div>
+
+    <!-- Checkout List -->
+    <div class="checkout-section" [class.active]="currentView === 'checkout'">
+      <h2>Checkout List</h2>
+      <div *ngFor="let product of checkoutProducts" class="checkout-item">
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.description }}</p>
+        <p>Price: {{ product.price | currency }}</p>
+      </div>
+    </div>
+  </div>
+
+
+</div>

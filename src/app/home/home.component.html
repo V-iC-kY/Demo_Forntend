@@ -1,51 +1,34 @@
-<div style="background-color: #fdf5e2;">
-<div class="header" [ngClass]="{ 'dark-mode': isDarkMode }">
-  <div class="app-name">
-    <img src="../../assets/icon/favicon.png" alt="App Icon" class="app-logo" />
-  </div>
+<div style="background-color: #ffffff;">
 
-
-  <div class="buttons">
-    <div class="search-container">
-      <i class="fas fa-search search-icon" (click)="toggleSearchBox()"></i>
-      <div *ngIf="showSearchBox" class="search-box">
-        <input type="text" placeholder="Search..." />
+  <div class="header" [ngClass]="{ 'dark-mode': isDarkMode }">
+    <div class="app-name">
+      <img src="../../assets/icon/favicon.png" alt="App Icon" class="app-logo" />
+    </div>
+    <div class="buttons">
+      <div class="search-container">
+        <i class="fas fa-search search-icon" (click)="toggleSearchBox()"></i>
+        <div *ngIf="showSearchBox" class="search-box">
+          <input type="text" placeholder="Search..." />
+        </div>
       </div>
-    </div>
-    <i class="fas fa-sun dark-mode-icon" (click)="toggleDarkMode()" *ngIf="!isDarkMode"></i>
-    <i class="fas fa-moon dark-mode-icon" (click)="toggleDarkMode()" *ngIf="isDarkMode"></i>
-    <i class="fas fa-cog settings-icon"></i>
-  </div>
-</div>
-
-
-<div class="content-list">
-  <div class="content-item" *ngFor="let item of contentList">
-    <div class="content-header">
-      <h2>{{ item.title }}</h2>
-    </div>
-    <div class="content-body">
-      <p>{{ item.description }}</p>
-    </div>    
-  </div>
-</div>
-
-<div class="chat-page">
-  <h2>Chat with {{ contactTitle }}</h2>
-  
-  <div class="chat-container">
-    <div class="messages" #messageContainer>
-      <div *ngFor="let msg of messages" [ngClass]="{'sent': msg.sender === 'me', 'received': msg.sender !== 'me'}" class="message">
-        <p>{{ msg.content }}</p>
-      </div>
-    </div>
-
-    <div class="message-input">
-      <input type="text" [(ngModel)]="newMessage" placeholder="Type a message..." (keyup.enter)="sendMessage()" />
-      <button (click)="sendMessage()">Send</button>
+      <i class="bi bi-brightness-high-fill" (click)="toggleDarkMode()" *ngIf="!isDarkMode"></i>
+      <i class="bi bi-moon-fill" (click)="toggleDarkMode()" *ngIf="isDarkMode"></i>
+      <!-- <i class="fas fa-cog settings-icon" (click)="toggleSetting()"></i> -->
     </div>
   </div>
-</div>
 
+  <!-- New Body Section -->
+  <div class="body-section">
+    <p>Welcome to the body section of the page!</p>
+  </div>
+
+
+
+  <div class="footer">
+    <i class="bi bi-house-door-fill" (click)="navigateTo('home')"></i>
+    <i class="bi bi-file-play-fill" (click)="navigateTo('videos')"></i>
+    <i class="bi bi-plus-square-fill" (click)="createPost()"></i>
+    <i class="bi bi-person-fill" (click)="navigateTo('profile')"></i>
+  </div>
 
 </div>
