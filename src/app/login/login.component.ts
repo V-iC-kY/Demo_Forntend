@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   otpForm: any;
   showOTP: boolean = false;
   showError: boolean = false;
+  backendError: string | null = null;
 
   constructor(private api: ApiService, private fb: FormBuilder, private router: Router) { }
 
@@ -58,11 +59,11 @@ export class LoginComponent implements OnInit {
         console.error("HTTP Error:", err.message);
       }
     });
-    this.showOTP = true;
-    this.loginForm = false
   }
 
   submitOTP() {
+    this.backendError = null;
+
     if (this.otpForm.invalid) {
       console.log('OTP form is invalid');
       this.otpForm.markAllAsTouched();
@@ -70,13 +71,28 @@ export class LoginComponent implements OnInit {
     }
 
     const otp = `${this.otpForm.value.otp1}${this.otpForm.value.otp2}${this.otpForm.value.otp3}${this.otpForm.value.otp4}`;
-    console.log('OTP submitted:', otp);
+    const email = localStorage.getItem('email');
 
-    this.showOTP = false;
-    this.otpForm.reset();
+    const postPayload = { otp, email };
 
-    this.router.navigate(['/home']);
-  }
+    this.api.ValidateOtp(postPayload).subscribe({
+      next: (res: any) => {
+        console.log(res);
+        this.showOTP = false;
+        this.otpForm.reset();
+        this.router.navigate(['/home']);
+      },
+      error: (err: any) => {
+        console.log('Error:', err);
+        
+        if (err.error && err.error.message) {
+          this.backendError = err.error.message;  
+        } else {
+          this.backendError = 'An error occurred while verifying OTP. Please try again.';
+        }
+      }
+    });
+}
 
   moveFocus(event: Event, nextField: string | null) {
     const input = event.target as HTMLInputElement;

@@ -44,9 +44,17 @@
       <input type="text" formControlName="otp3" maxlength="1" (input)="moveFocus($event, 'otp4')">
       <input type="text" formControlName="otp4" maxlength="1" (input)="moveFocus($event, null)">
     </div>
+    
+    <!-- Displaying the validation error if form is invalid -->
     <div *ngIf="otpForm.invalid && otpForm.touched" class="error-message">
       Please fill OTP fields.
     </div>
+    
+    <!-- Displaying backend error -->
+    <div *ngIf="backendError" class="error-message">
+      {{ backendError }}
+    </div>
+    
     <a (click)="submitOTP()">
       <span></span>
       <span></span>

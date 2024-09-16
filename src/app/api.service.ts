@@ -37,8 +37,16 @@ export class ApiService {
     return this.http.post(this.baseUrl + '/user/create', data);
   }
 
+  GenerateName(data:any){
+    return this.http.post(this.baseUrl + '/user/generateName', data);
+  }
+
   Login(data:any){
     return this.http.post(this.baseUrl + '/user/login', data);
+  }
+
+  ValidateOtp(data:any){
+    return this.http.post(this.baseUrl + '/user/validateOtp', data);
   }
 
 
