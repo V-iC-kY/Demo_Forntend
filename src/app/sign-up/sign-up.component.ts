@@ -15,6 +15,7 @@ export class SignUpComponent {
   serverError: string | null = null;
   vjIdName: string = '';
   backendError: string = '';
+  location: any;
 
   constructor(private fb: FormBuilder, private router: Router, private api: ApiService) {
     this.signupForm = this.fb.group({
@@ -80,7 +81,9 @@ export class SignUpComponent {
     this.api.GenerateName(postPayload).subscribe({
       next: (res: any) => {
         this.isPopupOpen = false;
-        this.router.navigate(['/login']);
+        this.router.navigate(['/home']).then(() => {
+          this.location.replaceState('/home');
+        });
       },
       error: (err: any) => {
         this.backendError = err.error?.message || 'ID already in use.';

@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   showOTP: boolean = false;
   showError: boolean = false;
   backendError: string | null = null;
+  location: any;
 
   constructor(private api: ApiService, private fb: FormBuilder, private router: Router) { }
 
@@ -77,10 +78,11 @@ export class LoginComponent implements OnInit {
 
     this.api.ValidateOtp(postPayload).subscribe({
       next: (res: any) => {
-        console.log(res);
         this.showOTP = false;
         this.otpForm.reset();
-        this.router.navigate(['/home']);
+        this.router.navigate(['/home']).then(() => {
+          this.location.replaceState('/home');
+        });
       },
       error: (err: any) => {
         console.log('Error:', err);
