@@ -4,5 +4,12 @@
     "capacitor": {},
     "cordova": {}
   },
-  "type": "angular"
+  "type": "angular",
+  "proxies": [
+    {
+      "context": "/api",
+      "target": "http://192.168.29.223:8080",
+      "secure": false
+    }
+  ]
 }

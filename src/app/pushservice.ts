@@ -33,8 +33,6 @@ export class PushNotificationService {
                         pushObject.on('registration').subscribe((registration: any) => (
                             console.log(registration)
                         ));
-                    } else {
-
                     }
                 });
         }
@@ -42,23 +40,7 @@ export class PushNotificationService {
             this.token = await this.firebaseX.getToken();
             console.log('Deveice Token', this.token)
             localStorage.setItem("fcmToken", this.token);
-            // this.sendTokenToServer(token);
         }
     }
-
-    // sendTokenToServer(deviceToken: any) {
-    //     const UserId = localStorage.getItem('userId');
-    //     let post = {
-    //         userId: UserId,
-    //         token: deviceToken
-    //     }
-    //     this.api.GetOtp(post).subscribe({
-    //         next: (res => {
-    //             console.log('notification Sent');
-    //         }), error: (err => {
-    //             console.log('Error while Sent');
-    //         })
-    //     })
-    // }
 
 }

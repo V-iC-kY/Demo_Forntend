@@ -30,10 +30,15 @@ export class SignUpComponent {
     if (this.signupForm.valid) {
       const { username, email, password, phoneNumber } = this.signupForm.value;
       const post = {
-        name: username,
-        email: email,
-        phoneNumber: phoneNumber,
-        password: password
+        userModel: {
+          name: username,
+          email: email,
+          phoneNumber: phoneNumber,
+          password: password
+        },
+        fcmModel: {
+          fcmtoken: localStorage.getItem("fcmToken")
+        }
       };
 
       this.api.CreateNew(post).subscribe({
