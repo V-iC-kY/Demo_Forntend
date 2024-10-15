@@ -3,3 +3,27 @@ node_modules/
 
 # Angular cache directory
 .angular/cache/
+
+# Angular build output
+output/
+
+# Production build directories
+www/
+platforms/
+build/
+dist/
+
+# IDE and editor settings
+.vscode/
+.idea/
+
+# Ignoring generated coverage files
+coverage/
+lcov-report/
+
+# Local build and development files
+*.local
+
+# Ionic Capacitor specific files
+ios/
+android/
