@@ -1,0 +1,6 @@
+<h2>Select an Address</h2>
+<ul>
+  <li *ngFor="let address of addresses" (click)="selectAddress(address)" style="cursor: pointer;">
+    {{ address }}
+  </li>
+</ul>

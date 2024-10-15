@@ -1,12 +1,158 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+
+
+
+  posts = [
+    {
+      user: {
+        name: 'John Doe',
+        profileImage: 'https://via.placeholder.com/50x50.png?text=JD'
+      },
+      productId: 1,
+      price: 50,
+      image: 'https://via.placeholder.com/150.png?text=Product+1',
+      date: new Date(),
+      liked: false,
+      bookmarked: false,
+      inCart: false,
+      comments: []
+    },
+    {
+      user: {
+        name: 'Jane Smith',
+        profileImage: 'https://via.placeholder.com/50x50.png?text=JS'
+      },
+      productId: 2,
+      price: 75,
+      image: 'https://via.placeholder.com/150.png?text=Product+2',
+      date: new Date(),
+      liked: false,
+      bookmarked: false,
+      inCart: false,
+      comments: []
+    },
+    {
+      user: {
+        name: 'Alice Johnson',
+        profileImage: 'https://via.placeholder.com/50x50.png?text=AJ'
+      },
+      productId: 3,
+      price: 100,
+      image: 'https://via.placeholder.com/150.png?text=Product+3',
+      date: new Date(),
+      liked: false,
+      bookmarked: false,
+      inCart: false,
+      comments: []
+    },
+    {
+      user: {
+        name: 'Bob Brown',
+        profileImage: 'https://via.placeholder.com/50x50.png?text=BB'
+      },
+      productId: 4,
+      price: 150,
+      image: 'https://via.placeholder.com/150.png?text=Product+4',
+      date: new Date(),
+      liked: false,
+      bookmarked: false,
+      inCart: false,
+      comments: []
+    },
+    {
+      user: {
+        name: 'Clara White',
+        profileImage: 'https://via.placeholder.com/50x50.png?text=CW'
+      },
+      productId: 5,
+      price: 60,
+      image: 'https://via.placeholder.com/150.png?text=Product+5',
+      date: new Date(),
+      liked: false,
+      bookmarked: false,
+      inCart: false,
+      comments: []
+    },
+    {
+      user: {
+        name: 'Daniel Green',
+        profileImage: 'https://via.placeholder.com/50x50.png?text=DG'
+      },
+      productId: 6,
+      price: 90,
+      image: 'https://via.placeholder.com/150.png?text=Product+6',
+      date: new Date(),
+      liked: false,
+      bookmarked: false,
+      inCart: false,
+      comments: []
+    },
+    {
+      user: {
+        name: 'Eve Black',
+        profileImage: 'https://via.placeholder.com/50x50.png?text=EB'
+      },
+      productId: 7,
+      price: 120,
+      image: 'https://via.placeholder.com/150.png?text=Product+7',
+      date: new Date(),
+      liked: false,
+      bookmarked: false,
+      inCart: false,
+      comments: []
+    },
+    {
+      user: {
+        name: 'Frank Blue',
+        profileImage: 'https://via.placeholder.com/50x50.png?text=FB'
+      },
+      productId: 8,
+      price: 110,
+      image: 'https://via.placeholder.com/150.png?text=Product+8',
+      date: new Date(),
+      liked: false,
+      bookmarked: false,
+      inCart: false,
+      comments: []
+    },
+    {
+      user: {
+        name: 'Grace Yellow',
+        profileImage: 'https://via.placeholder.com/50x50.png?text=GY'
+      },
+      productId: 9,
+      price: 130,
+      image: 'https://via.placeholder.com/150.png?text=Product+9',
+      date: new Date(),
+      liked: false,
+      bookmarked: false,
+      inCart: false,
+      comments: []
+    },
+    {
+      user: {
+        name: 'Hank Red',
+        profileImage: 'https://via.placeholder.com/50x50.png?text=HR'
+      },
+      productId: 10,
+      price: 140,
+      image: 'https://via.placeholder.com/150.png?text=Product+10',
+      date: new Date(),
+      liked: false,
+      bookmarked: false,
+      inCart: false,
+      comments: []
+    }
+  ];
 
 
   contentList = [
@@ -32,17 +178,40 @@ export class HomeComponent {
     { id: 20, title: 'Content Item 20', description: 'Description for item 20' },
   ];
 
+  activeCommentItem: any;
+  newComment: string = '';
 
-  contactTitle: any;
-  contactDescription: any;
-  newMessage: string = '';
-  messages: { content: string, sender: string }[] = [];
-  @ViewChild('messageContainer') messageContainer!: ElementRef;
-
-  isDarkMode = false;
   showSearchBox = false;
+  isDarkMode: boolean = false;
+  cartCount: any ;
+  isHeaderHidden: boolean = false;
+  lastScrollTop: number = 0;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private cartService: CartService) { }
+
+  ngOnInit() {
+    this.updateCartCount();
+  }
+
+  toggleCommentPopup(item: any) {
+    this.activeCommentItem = item;
+  }
+
+  closeCommentPopup() {
+    this.activeCommentItem = null;
+  }
+
+  addComment(item: any) {
+    if (this.newComment.trim()) {
+      item.comments.push({ user: { name: 'Your Name' }, text: this.newComment });
+      this.newComment = '';
+    }
+  }
+
+  addProductToCart(product: any) {
+    this.cartService.addToCart(product);
+    product.inCart = true;
+  }
 
   toggleDarkMode() {
     this.isDarkMode = !this.isDarkMode;
@@ -56,16 +225,24 @@ export class HomeComponent {
     this.router.navigate(['/settings']);
   }
 
-  openChat(itemId: number) {
-    this.router.navigate(['/chatpage']);
+  goToCart() {
+    this.router.navigate(['/cart']);
   }
 
-  navigateTo(route: string): void {
-    this.router.navigate([route]);
+  updateCartCount() {
+    this.cartCount = this.cartService.getCartItems().length;
   }
 
-  createPost(): void {
-    console.log('Create post clicked');
+  onScroll(event: any): void {
+    const scrollTop = event.target.scrollTop;
+
+    if (scrollTop > this.lastScrollTop) {
+      this.isHeaderHidden = true;
+    } else {
+      this.isHeaderHidden = false;
+    }
+
+    this.lastScrollTop = scrollTop;
   }
 
 }

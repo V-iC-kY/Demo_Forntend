@@ -1,34 +1,70 @@
-<div style="background-color: #ffffff;">
-
-  <div class="header" [ngClass]="{ 'dark-mode': isDarkMode }">
-    <div class="app-name">
-      <img src="../../assets/icon/favicon.png" alt="App Icon" class="app-logo" />
+<div class="header" [ngClass]="{ 'dark-mode': isDarkMode, 'hidden-header': isHeaderHidden }">
+  <div class="app-name">
+    <i class="bi bi-vimeo" style="font-size: 20px; color: #ff008b;"></i>
+  </div>
+  <div class="buttons">
+    <!-- Search Icon and Box -->
+    <div class="search-container">
+      <i class="fas fa-search search-icon" (click)="toggleSearchBox()"></i>
+      <div *ngIf="showSearchBox" class="search-box">
+        <input type="text" placeholder="Search..." />
+      </div>
     </div>
-    <div class="buttons">
-      <div class="search-container">
-        <i class="fas fa-search search-icon" (click)="toggleSearchBox()"></i>
-        <div *ngIf="showSearchBox" class="search-box">
-          <input type="text" placeholder="Search..." />
+
+    <!-- Dark Mode Toggle Icons -->
+    <i class="bi bi-brightness-high-fill" (click)="toggleDarkMode()" *ngIf="!isDarkMode"></i>
+    <i class="bi bi-moon-fill" (click)="toggleDarkMode()" *ngIf="isDarkMode"></i>
+
+    <!-- Cart Icon with Count -->
+    <div class="cart-icon-container" (click)="goToCart()">
+      <i class="bi bi-minecart-loaded"></i>
+      <span class="cart-count" *ngIf="cartCount > 0">{{ cartCount }}</span>
+    </div>
+  </div>
+</div>
+
+<!-- Body Section -->
+<div class="body-section" (scroll)="onScroll($event)">
+  <div class="post" *ngFor="let item of posts">
+    <!-- User Profile Section inside the post -->
+    <div class="user-profile">
+      <span class="user-name">{{ item.user.name }}</span>
+      <img [src]="item.user.profileImage" alt="User Profile" class="profile-image">
+    </div>
+
+    <!-- Post Image -->
+    <img [src]="item.image" alt="Post Image" class="post-image">
+
+    <!-- Post Date -->
+    <p>{{ item.date | date: 'medium' }}</p>
+
+    <!-- Action Icons -->
+    <div class="actions">
+      <i [ngClass]="item.liked ? 'bi bi-heart-fill' : 'bi bi-heart'" (click)="item.liked = !item.liked"></i>
+      <i class="bi bi-chat" title="Comment" (click)="toggleCommentPopup(item)"></i>
+      <i [ngClass]="item.bookmarked ? 'bi bi-bookmark-fill' : 'bi bi-bookmark'"
+        (click)="item.bookmarked = !item.bookmarked"></i>
+      <i [ngClass]="item.inCart ? 'bi bi-cart-fill' : 'bi bi-cart'" (click)="addProductToCart(item)" tabindex="0"
+        role="button"></i>
+    </div>
+
+    <!-- Comment Popup -->
+    <div *ngIf="activeCommentItem" class="comment-popup">
+      <div class="popup-header">
+        <i class="bi bi-arrow-left-short" (click)="closeCommentPopup()"></i>
+        <span class="popup-title">Comments</span>
+      </div>
+      <div class="popup-content">
+        <div class="comment-list">
+          <div *ngFor="let comment of activeCommentItem.comments.slice().reverse()" class="comment-item">
+            <p><strong>{{ comment.user.name }}:</strong> {{ comment.text }}</p>
+          </div>
+        </div>
+        <div class="comment-input-container">
+          <textarea [(ngModel)]="newComment" placeholder="Add a comment..." class="comment-input"></textarea>
+          <i class="bi bi-send" (click)="addComment(activeCommentItem)"></i>
         </div>
       </div>
-      <i class="bi bi-brightness-high-fill" (click)="toggleDarkMode()" *ngIf="!isDarkMode"></i>
-      <i class="bi bi-moon-fill" (click)="toggleDarkMode()" *ngIf="isDarkMode"></i>
-      <!-- <i class="fas fa-cog settings-icon" (click)="toggleSetting()"></i> -->
     </div>
   </div>
-
-  <!-- New Body Section -->
-  <div class="body-section">
-    <p>Welcome to the body section of the page!</p>
-  </div>
-
-
-
-  <div class="footer">
-    <i class="bi bi-house-door-fill" (click)="navigateTo('home')"></i>
-    <i class="bi bi-file-play-fill" (click)="navigateTo('videos')"></i>
-    <i class="bi bi-plus-square-fill" (click)="createPost()"></i>
-    <i class="bi bi-person-fill" (click)="navigateTo('profile')"></i>
-  </div>
-
 </div>

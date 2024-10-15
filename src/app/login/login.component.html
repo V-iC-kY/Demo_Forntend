@@ -1,3 +1,4 @@
+<section style="height: 100%;width: 100%;background-color: rgb(217 209 214 / 57%);"></section>
 <div class="login-box" *ngIf="loginForm">
   <h2>Login</h2>
   <form [formGroup]="loginForm" (ngSubmit)="login()">
@@ -11,7 +12,8 @@
     </div>
 
     <div class="user-box">
-      <input type="text" formControlName="phoneNumber" required>
+      <input type="text" formControlName="phoneNumber" required
+        oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="10">
       <label>Phone Number</label>
     </div>
     <div *ngIf="loginForm.controls.phoneNumber.invalid && loginForm.controls.phoneNumber.touched">
@@ -44,17 +46,17 @@
       <input type="text" formControlName="otp3" maxlength="1" (input)="moveFocus($event, 'otp4')">
       <input type="text" formControlName="otp4" maxlength="1" (input)="moveFocus($event, null)">
     </div>
-    
+
     <!-- Displaying the validation error if form is invalid -->
     <div *ngIf="otpForm.invalid && otpForm.touched" class="error-message">
       Please fill OTP fields.
     </div>
-    
+
     <!-- Displaying backend error -->
     <div *ngIf="backendError" class="error-message">
       {{ backendError }}
     </div>
-    
+
     <a (click)="submitOTP()">
       <span></span>
       <span></span>

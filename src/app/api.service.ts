@@ -37,17 +37,24 @@ export class ApiService {
     return this.http.post(this.baseUrl + '/user/create', data);
   }
 
-  GenerateName(data:any){
+  GenerateName(data: any) {
     return this.http.post(this.baseUrl + '/user/generateName', data);
   }
 
-  Login(data:any){
+  Login(data: any) {
     return this.http.post(this.baseUrl + '/user/login', data);
   }
 
-  ValidateOtp(data:any){
+  ValidateOtp(data: any) {
     return this.http.post(this.baseUrl + '/user/validateOtp', data);
   }
 
+  updateUser(data: any) {
+    return this.http.put(this.baseUrl + '/user/update', data);
+  }
+
+  getUploadedPosts(userId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/users/${userId}/posts`);
+  }
 
 }

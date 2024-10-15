@@ -6,6 +6,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { ChatPageComponent } from './chat-page/chat-page.component';
 import { SettingsComponent } from './settings/settings.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { CartComponent } from './cart/cart.component';
+import { AddressComponent } from './address/address.component';
 
 @NgModule({
   imports: [
@@ -17,6 +19,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
       { path: 'chatpage', component: ChatPageComponent },
       { path: 'settings', component: SettingsComponent },
       { path: 'profile', component: UserProfileComponent },
+      { path: 'cart', component: CartComponent },
+      { path: 'address', component: AddressComponent },
 
     ]),
   ],

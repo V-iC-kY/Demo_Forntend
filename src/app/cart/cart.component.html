@@ -1,0 +1,63 @@
+<div class="cart-container">
+  <!-- Back Arrow (Always Visible) -->
+  <i class="bi bi-arrow-left back-arrow" (click)="goBack()" style="color: black;"></i>
+
+  <!-- Empty Cart Message (Visible Only When Cart is Empty) -->
+  <div *ngIf="cartItems.length === 0" style="display: flex; justify-content: center; align-items: center;">
+    <p style="color: black;">Your cart is empty.</p>
+  </div>
+
+  <!-- Cart Title (Visible Only When Cart has Items) -->
+  <h2 *ngIf="cartItems.length > 0">Your Cart</h2>
+
+  <!-- Cart Items List -->
+  <div *ngFor="let item of cartItems" class="cart-item">
+    <img [src]="item.image" alt="{{ item.name }}" class="cart-item-image" />
+    <p><strong>{{ item.name }}</strong></p>
+    <p>Price: {{ item.price }}</p>
+    <p>Qty: {{ item.quantity }}</p>
+    <i class="bi bi-trash2-fill" (click)="removeFromCart(item.productId)" style="cursor: pointer; color: red;"></i>
+  </div>
+
+  <!-- Cart Total and Address Section -->
+  <div *ngIf="cartItems.length > 0" class="cart-total">
+    <div class="total-summary">
+      <div class="amount-item">
+        <h3>Subtotal:</h3>
+        <span>{{ subtotal }}</span>
+      </div>
+      <div class="amount-item">
+        <h3>Discount:</h3>
+        <span>-{{ discount }}</span>
+      </div>
+      <div class="amount-item">
+        <h3>Total:</h3>
+        <span>{{ totalAmount }}</span>
+      </div>
+    </div>
+
+    <!-- Address Display Section -->
+    <div class="address-section">
+      <label for="address">Shipping: <span *ngIf="selectedAddress">{{ selectedAddress }}</span></label>
+      <button (click)="navigateToAddress()" class="add-address-button">
+        {{ selectedAddress ? 'Change Address' : 'Address' }}
+      </button>
+    </div>
+
+    <!-- Payment Method Selection -->
+    <div *ngIf="selectedAddress" class="payment-section">
+      <h4>Select Payment Method:</h4>
+      <div class="payment-methods">
+        <label (click)="selectPaymentMethod('cod')" [class.selected]="paymentMethod === 'cod'">
+          <i class="bi bi-cash-stack"></i> Cash on Delivery
+        </label>
+        <label (click)="selectPaymentMethod('online')" [class.selected]="paymentMethod === 'online'">
+          <i class="bi bi-credit-card"></i> Online Payment
+        </label>
+      </div>
+    </div>
+
+    <!-- Checkout Button -->
+    <button *ngIf="paymentMethod" (click)="checkout()" class="checkout-button">Checkout</button>
+  </div>
+</div>

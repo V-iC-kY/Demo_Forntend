@@ -16,11 +16,14 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { ChatPageComponent } from './chat-page/chat-page.component';
 import { SettingsComponent } from './settings/settings.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { Camera } from '@awesome-cordova-plugins/camera/ngx';
+import { CartComponent } from './cart/cart.component';
+import { AddressComponent } from './address/address.component';
 
 @NgModule({
   imports: [BrowserModule, FormsModule, AppRoutingModule, CommonModule, ReactiveFormsModule, HttpClientModule, IonicModule.forRoot()],
-  declarations: [AppComponent, LoginComponent, HomeComponent, SignUpComponent, ChatPageComponent, SettingsComponent, UserProfileComponent],
-  providers: [FirebaseX, HttpClient, Push, IonicRouteStrategy, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  declarations: [AppComponent, LoginComponent, HomeComponent, SignUpComponent, ChatPageComponent, SettingsComponent, UserProfileComponent,CartComponent,AddressComponent],
+  providers: [FirebaseX, HttpClient, Push, IonicRouteStrategy, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, Camera],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
