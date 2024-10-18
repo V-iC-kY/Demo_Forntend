@@ -1,191 +1,95 @@
-.login-box,
-.otp-box {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 400px;
-  padding: 40px;
-  transform: translate(-50%, -50%);
-  background: rgba(211, 37, 102, 0.84);
-  box-sizing: border-box;
-  box-shadow: 0 15px 25px rgb(153 80 114 / 99%);
-  border-radius: 10px;
+ion-content {
+  --background: white;
+  color: black;
+  --offset-top: 0px;
+  --offset-bottom: 0px;
+  --keyboard-offset: 0px !important;
 }
 
-.login-box h2,
-.otp-box h3 {
-  margin: 0 0 30px;
-  padding: 0;
-  color: #fff;
+.login-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 0px 20px;
+  background-color: white;
+  color: black;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.logo-container {
   text-align: center;
+  margin-bottom: 20px;
 }
 
-.user-box {
-  position: relative;
-  margin-bottom: 30px;
+.book-icon {
+  font-size: 48px;
+  color: #ffd700;
 }
 
-.user-box input {
-  width: 100%;
-  padding: 10px 0;
-  font-size: 16px;
-  color: #fff;
-  margin-bottom: 0;
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: black;
+
+}
+
+ion-item {
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  --background: transparent;
+  color: black;
+}
+
+ion-label {
+  color: #6d6d6d !important;
+  font-family: 'Exo 2', sans-serif !important;
+}
+
+ion-item:focus-within ion-label {
+  color: #ffd700;
+}
+
+ion-input {
+  --padding-start: 10px;
+  --padding-end: 10px;
   border: none;
-  border-bottom: 1px solid #fff;
-  outline: none;
-  background: transparent;
-}
-
-.user-box label {
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 10px 0;
-  font-size: 16px;
-  color: #fff;
-  pointer-events: none;
-  transition: .5s;
-}
-
-.user-box input:focus~label,
-.user-box input:valid~label {
-  display: none;
-}
-
-form small {
-  display: block;
-  color: rgb(3, 3, 3);
-  font-size: 12px;
-  margin-top: 5px;
-}
-
-.login-box a,
-.otp-box a {
-  position: relative;
-  display: inline-block;
-  padding: 10px 20px;
-  color: #03e9f4;
-  font-size: 16px;
-  text-decoration: none;
-  text-transform: uppercase;
-  overflow: hidden;
-  transition: .5s;
-  margin-top: 40px;
-  letter-spacing: 4px;
-}
-
-.login-box a:hover,
-.otp-box a:hover {
-  background: #f1f1f1;
-  color: #000000;
   border-radius: 5px;
-  box-shadow: 0 0 5px #ffffff, 0 0 25px #ffffff, 0 0 50px #ffffff, 0 0 100px #c5c5c5;
+  color: black;
 }
 
-.login-box a span,
-.otp-box a span {
-  position: absolute;
-  display: block;
+ion-input:focus {
+  --border-width: 2px;
+  --border-color: #ffd700;
+  --background: #f9f9f9;
+  outline: none;
+  border-radius: 5px;
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
 }
 
-.login-box a span:nth-child(1),
-.otp-box a span:nth-child(1) {
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #03e9f4);
-  animation: btn-anim1 1s linear infinite;
+.login-button {
+  --background: #ffd700;
+  --color: rgb(15, 15, 15);
+  margin-top: 20px;
 }
 
-@keyframes btn-anim1 {
-  0% {
-    left: -100%;
-  }
-
-  50%,
-  100% {
-    left: 100%;
-  }
+.terms {
+  font-size: 12px;
+  text-align: center;
+  margin-top: 20px;
+  color: rgb(95, 95, 95);
 }
 
-.login-box a span:nth-child(2),
-.otp-box a span:nth-child(2) {
-  top: -100%;
-  right: 0;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(180deg, transparent, #03e9f4);
-  animation: btn-anim2 1s linear infinite;
-  animation-delay: .25s;
+.social-login {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
-@keyframes btn-anim2 {
-  0% {
-    top: -100%;
-  }
-
-  50%,
-  100% {
-    top: 100%;
-  }
-}
-
-.login-box a span:nth-child(3),
-.otp-box a span:nth-child(3) {
-  bottom: 0;
-  right: -100%;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(270deg, transparent, #03e9f4);
-  animation: btn-anim3 1s linear infinite;
-  animation-delay: .5s;
-}
-
-@keyframes btn-anim3 {
-  0% {
-    right: -100%;
-  }
-
-  50%,
-  100% {
-    right: 100%;
-  }
-}
-
-.login-box a span:nth-child(4),
-.otp-box a span:nth-child(4) {
-  bottom: -100%;
-  left: 0;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(360deg, transparent, #03e9f4);
-  animation: btn-anim4 1s linear infinite;
-  animation-delay: .75s;
-}
-
-@keyframes btn-anim4 {
-  0% {
-    bottom: -100%;
-  }
-
-  50%,
-  100% {
-    bottom: 100%;
-  }
-}
-
-.otp-box input {
-  margin: 10px 0;
-  padding: 5px;
-  width: 25px;
-}
-
-.error-message {
-  color: red;
-  font-size: 14px;
-  margin-top: 10px;
+.social-login ion-button {
+  --padding-start: 10px;
+  --padding-end: 10px;
 }
 
 .signup-link {
@@ -193,20 +97,103 @@ form small {
   margin-top: 20px;
 }
 
-.signup-link p {
-  font-size: 14px;
-  color: #666;
-  display: inline;
-}
-
 .signup-link a {
-  color: #03e9f4;
+  color: #007bff;
   text-decoration: none;
-  cursor: pointer;
-  font-weight: bold;
-  display: inline;
 }
 
-.signup-link a:hover {
+.invalid {
+  border: 2px solid red;
+}
+
+.error-message {
+  color: red;
+  font-size: 15px;
+  margin: 20px;
+}
+
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+}
+
+.animated-button {
+  position: relative;
+  padding: 10px 20px;
+  overflow: hidden;
+  background: #ffc107;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.otp-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 400px;
+}
+
+
+.phone-icon {
+  font-size: 64px;
+  color: #ffc107;
+  margin-bottom: 20px;
+}
+
+h2 {
+  color: #ffc107;
+  margin-bottom: 10px;
+}
+
+p {
+  text-align: center;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.otp-input {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 250px;
+  margin-bottom: 20px;
+  gap: 20px;
+}
+
+.resend-text {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.resend-link {
+  color: #007bff;
   text-decoration: underline;
+  cursor: pointer;
 }

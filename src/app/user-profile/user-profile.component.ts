@@ -22,6 +22,8 @@ export class UserProfileComponent implements OnInit {
     password: ''
   };
 
+  showFooter: boolean = true;
+
   profilepop: boolean = true
   bio: string = '';
   editProfileForm: any;

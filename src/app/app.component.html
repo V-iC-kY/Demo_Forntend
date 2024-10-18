@@ -1,21 +1,3 @@
-<div style="background-color: #ffffff; display: flex; flex-direction: column; height: 100vh;">
-  <ion-app style="flex: 1;">
-    <ion-router-outlet></ion-router-outlet>
-  </ion-app>
-
-  <!-- Footer Section -->
-  <div class="footer">
-    <div class="icon-container" (click)="navigateTo('home')">
-      <i class="bi bi-house-door" title="Home"></i>
-    </div>
-    <div class="icon-container" (click)="createPost()">
-      <i class="bi bi-plus-square" title="Create Post"></i>
-    </div>
-    <div class="icon-container" (click)="navigateTo('chatpage')">
-      <i class="bi bi-chat" title="Chat"></i>
-    </div>
-    <div class="icon-container" (click)="navigateTo('profile')">
-      <i class="bi bi-person" title="Profile"></i>
-    </div>
-  </div>
-</div>
+<ion-app>
+  <ion-router-outlet></ion-router-outlet>
+</ion-app>

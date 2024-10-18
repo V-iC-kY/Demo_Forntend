@@ -1,68 +1,64 @@
-<section style="height: 100%;width: 100%;background-color: rgb(217 209 214 / 57%);"></section>
-<div class="login-box" *ngIf="loginForm">
-  <h2>Login</h2>
-  <form [formGroup]="loginForm" (ngSubmit)="login()">
-    <div class="user-box">
-      <input type="text" formControlName="email" required>
-      <label>Email</label>
+<ion-content class="ion-padding" style="--background: white; color: black;">
+  <div class="login-container" *ngIf="!showOTP"> <!-- Hide login form when showOTP is true -->
+    <div class="logo-container">
+      <ion-icon name="book-outline" class="book-icon"></ion-icon>
     </div>
-    <div *ngIf="loginForm.controls.email.invalid && loginForm.controls.email.touched">
-      <small *ngIf="loginForm.controls.email.errors?.required">Email is required.</small>
-      <small *ngIf="loginForm.controls.email.errors?.email">Invalid email format.</small>
-    </div>
+    <h1>Login</h1>
+    <form (ngSubmit)="onLogin()" #loginForm="ngForm">
+      <ion-item [class.invalid]="emailInvalid && loginForm.submitted">
+        <ion-label position="floating">Username or Phone Number</ion-label>
+        <ion-input type="text" [(ngModel)]="username" name="username" required></ion-input>
+      </ion-item>
 
-    <div class="user-box">
-      <input type="text" formControlName="phoneNumber" required
-        oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="10">
-      <label>Phone Number</label>
-    </div>
-    <div *ngIf="loginForm.controls.phoneNumber.invalid && loginForm.controls.phoneNumber.touched">
-      <small *ngIf="loginForm.controls.phoneNumber.errors?.required">Phone number is required.</small>
-      <small *ngIf="loginForm.controls.phoneNumber.errors?.pattern">Invalid phone number.</small>
-      <small *ngIf="loginForm.controls.phoneNumber.errors?.minlength">Phone number must be 10 digits.</small>
-    </div>
+      <ion-item [class.invalid]="passwordInvalid && loginForm.submitted">
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" [(ngModel)]="password" name="password" required></ion-input>
+      </ion-item>
 
-    <a (click)="login()">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      LOGIN
-    </a>
-  </form>
+      <div *ngIf="backendError" class="error-message">
+        <small class="error-text">* {{ backendError }}</small>
+      </div>
 
-  <!-- Sign Up Link/Button -->
-  <div class="signup-link">
-    <p>Don't have an account? <a (click)="signUp()">Sign Up</a></p>
+      <ion-button expand="block" type="submit" class="login-button">Login</ion-button>
+    </form>
+
+    <p class="terms">By logging in, you agree to our Terms & Privacy Policy</p>
+    <div class="social-login">
+      <ion-button fill="clear">
+        <ion-icon slot="icon-only" name="logo-google"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear">
+        <ion-icon slot="icon-only" name="logo-facebook"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear">
+        <ion-icon slot="icon-only" name="logo-twitter"></ion-icon>
+      </ion-button>
+    </div>
+    <p class="signup-link">Don't have an account? <a (click)="goToSignup()">Sign Up</a></p>
   </div>
-</div>
 
-<div *ngIf="showOTP" class="otp-box">
-  <h3>Enter OTP</h3>
-  <form [formGroup]="otpForm" (ngSubmit)="submitOTP()">
-    <div style="display: flex; column-gap: 20px;">
-      <input type="text" formControlName="otp1" maxlength="1" (input)="moveFocus($event, 'otp2')">
-      <input type="text" formControlName="otp2" maxlength="1" (input)="moveFocus($event, 'otp3')">
-      <input type="text" formControlName="otp3" maxlength="1" (input)="moveFocus($event, 'otp4')">
-      <input type="text" formControlName="otp4" maxlength="1" (input)="moveFocus($event, null)">
+  <!-- OTP Form -->
+  <div *ngIf="showOTP" class="container">
+    <div class="otp-container">
+      <ion-icon name="phone-portrait-outline" class="phone-icon"></ion-icon>
+      <h2>OTP</h2>
+      <p>A 4-digit code has been sent to your registered phone number.</p>
+
+      <div class="otp-input">
+        <ion-input type="text" maxlength="1" *ngFor="let _ of [1, 2, 3, 4]; let i = index" [(ngModel)]="otp[i]"
+          (ionInput)="moveFocus($event, i)" oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+          style="background-color: #ffc107; border-radius: 50%; text-align: center;"></ion-input>
+      </div>
+
+      <!-- Display error message if exists -->
+      <div *ngIf="backendError" class="error-message">
+        <small class="error-text">{{ backendError }}</small>
+      </div>
+
+      <p class="resend-text">Didn't receive the code? <span class="resend-link" (click)="resendOtp()">RESEND</span>
+      </p>
+
+      <ion-button expand="block" (click)="verifyOtp()" style="--background: #ffd700;">Verify</ion-button>
     </div>
-
-    <!-- Displaying the validation error if form is invalid -->
-    <div *ngIf="otpForm.invalid && otpForm.touched" class="error-message">
-      Please fill OTP fields.
-    </div>
-
-    <!-- Displaying backend error -->
-    <div *ngIf="backendError" class="error-message">
-      {{ backendError }}
-    </div>
-
-    <a (click)="submitOTP()">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      SUBMIT OTP
-    </a>
-  </form>
-</div>
+  </div>
+</ion-content>

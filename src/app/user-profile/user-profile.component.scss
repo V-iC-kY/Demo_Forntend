@@ -1,194 +1,185 @@
-.home-page {
+.profile-page {
+  background-color: white;
+  height: 100%;
 
   .profile-section {
     display: flex;
     flex-direction: column;
 
+    .profile-info-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+      padding: 0 15px;
+    }
+
+    .username-section {
+      display: flex;
+      align-items: center;
+    }
+
+    .username {
+      font-weight: bold;
+      margin: 0;
+      color: black;
+    }
+
+    .username-section .bi-chevron-compact-down {
+      font-size: 1.2rem;
+      margin-left: 8px;
+      color: black;
+    }
+
+    .edit-profile-btn {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      color: black;
+      border-radius: 5px;
+      padding: 5px 13px;
+
+      i {
+        margin-right: 5px;
+      }
+    }
+
     .profile-header {
       display: flex;
       align-items: center;
       justify-content: space-around;
-    }
 
-    .profile-left {
-      display: flex;
-      align-items: center;
-    }
-
-    .profile-image-container {
-      position: relative;
-      margin-right: 15px;
-
-      .profile-image {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-      }
-
-      .add-icon {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        background-color: white;
-        border-radius: 50%;
-        width: 20px;
-        height: 20px;
+      .profile-left {
         display: flex;
         align-items: center;
-        justify-content: center;
-        font-size: 14px;
-      }
-    }
 
-    .profile-bottom {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 10px;
-
-      .profile-stats {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        .stat-item {
-          text-align: center;
+        .profile-image-container {
+          position: relative;
           margin-right: 15px;
-          color: black;
+
+          .profile-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+          }
+
+          .add-icon {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background-color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+          }
+        }
+      }
+
+      .profile-bottom {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+
+        .profile-stats {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          .stat-item {
+            text-align: center;
+            margin-right: 15px;
+            color: black;
+          }
         }
       }
     }
-  }
 
-  .profile-info-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-    padding: 0 15px;
-  }
+    .name-bio-container {
+      margin-left: 10px;
+      text-align: left;
 
-  .username-section {
-    display: flex;
-    align-items: center;
-  }
+      .name {
+        font-size: 18px;
+        font-weight: bold;
+        color: black;
 
-  .username {
-    font-weight: bold;
-    margin: 0;
-    color: black;
-  }
+        .pronouns {
+          font-size: 14px;
+          color: gray;
+          margin-left: 5px;
+        }
+      }
 
-  .username-section .bi-chevron-compact-down {
-    font-size: 1.2rem;
-    margin-left: 8px;
-    color: black;
-  }
-
-  .edit-profile-btn {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    color: black;
-    border-radius: 5px;
-    padding: 5px 13px;
-  }
-
-  .edit-profile-btn i {
-    margin-right: 5px;
-  }
-
-
-  .name-bio-container {
-    margin-left: 10px;
-    text-align: left;
-
-    .name {
-      font-size: 18px;
-      font-weight: bold;
-      color: black;
-
-      .pronouns {
+      .bio {
         font-size: 14px;
-        color: gray;
-        margin-left: 5px;
+        color: black;
+        margin-top: 5px;
+        font-style: italic;
       }
     }
-
-    .bio {
-      font-size: 14px;
-      color: black;
-      margin-top: 5px;
-      font-style: italic;
-    }
-  }
-}
-
-.product-toggle {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 16px;
-
-  .toggle-item {
-    color: rgb(0, 0, 0);
-    background-color: white;
-    cursor: pointer;
-    border-radius: 5px;
-    padding: 10px 15px;
-    transition: background-color 0.3s;
-  }
-}
-
-
-
-
-
-.uploaded-products,
-.saved-list {
-  padding: 16px;
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-
-  h2 {
-    margin-bottom: 16px;
-    color: #000000;
   }
 
-  .product-item {
-    flex: 1 1 calc(30% - 16px);
-    max-width: calc(33.33% - 16px);
-    box-sizing: border-box;
-    margin: 0 8px 16px;
-    text-align: center;
-    // height: 200px;
+  .product-toggle {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
+    margin-bottom: 16px;
 
-    .product-image {
-      max-width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 8px;
-      border: 1px solid gray;
+    .toggle-item {
+      color: rgb(0, 0, 0);
+      background-color: white;
+      cursor: pointer;
+      border-radius: 5px;
+      padding: 10px 15px;
+      transition: background-color 0.3s;
+    }
+  }
+
+  .uploaded-products,
+  .saved-list {
+    padding: 16px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+
+    h2 {
+      margin-bottom: 16px;
+      color: #000000;
+    }
+
+    .product-item {
+      flex: 1 1 calc(30% - 16px);
+      max-width: calc(33.33% - 16px);
+      box-sizing: border-box;
+      margin: 0 8px 16px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      .product-image {
+        max-width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 1px solid gray;
+      }
+    }
+  }
+
+  @media (max-width: 600px) {
+
+    .uploaded-products .product-item,
+    .saved-list .product-item {
+      flex: 0 0 100%;
     }
   }
 }
 
-@media (max-width: 600px) {
-
-  .uploaded-products .product-item,
-  .saved-list .product-item {
-    flex: 0 0 100%;
-    // height: 200px;
-  }
-}
-
-
-
-
-// edit profile style
-
+// Edit Profile Styles
 .error-message {
   color: white;
   font-size: 12px;
@@ -203,43 +194,43 @@
 .user-box {
   position: relative;
   margin-bottom: 20px;
-}
 
-.user-box small {
-  margin-top: 5px;
-}
+  small {
+    margin-top: 5px;
+  }
 
-.user-box input {
-  border: none;
-  border-bottom: 2px solid #e0e0e0;
-  outline: none;
-  width: 100%;
-  padding: 10px 0;
-  font-size: 16px;
-  color: black;
-  background-color: transparent;
-  transition: border-color 0.3s;
-}
+  input {
+    border: none;
+    border-bottom: 2px solid #e0e0e0;
+    outline: none;
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: black;
+    background-color: transparent;
+    transition: border-color 0.3s;
 
-.user-box input:focus {
-  border-bottom: 2px solid #e90f35;
-}
+    &:focus {
+      border-bottom: 2px solid #e90f35;
+    }
+  }
 
-.user-box label {
-  position: absolute;
-  top: 10px;
-  left: 0;
-  font-size: 16px;
-  color: #999;
-  transition: all 0.3s;
-}
+  label {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    font-size: 16px;
+    color: #999;
+    transition: all 0.3s;
+  }
 
-.user-box input:focus+label,
-.user-box input:not(:placeholder-shown)+label {
-  top: -10px;
-  left: 0;
-  font-size: 12px;
-  color: #000000;
+  input:focus+label,
+  input:not(:placeholder-shown)+label {
+    top: -10px;
+    left: 0;
+    font-size: 12px;
+    color: #000000;
+  }
 }
 
 .update-profile-btn {
@@ -252,15 +243,15 @@
   font-size: 16px;
   transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
 
-.update-profile-btn:hover {
-  background-color: #c60d2b;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-}
+  &:hover {
+    background-color: #c60d2b;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  }
 
-.update-profile-btn:active {
-  transform: translateY(0);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../api.service';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,52 +10,23 @@ import { Router } from '@angular/router';
 })
 export class SignUpComponent {
 
-  signupForm: any;
-  isPopupOpen: boolean = false
+  name: string = '';
+  email: string = '';
+  phoneNumber: string = '';
+  password: string = '';
+  username: string = '';
+  isPopupOpen: boolean = false;
   serverError: string | null = null;
-  vjIdName: string = '';
-  backendError: string = '';
+  serverError1: string | null = null;
   location: any;
 
+  nameInvalid = false;
+  emailInvalid = false;
+  phoneNumberInvalid = false;
+  passwordInvalid = false;
+
   constructor(private fb: FormBuilder, private router: Router, private api: ApiService) {
-    this.signupForm = this.fb.group({
-      username: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(4)]],
-      phoneNumber: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]]
-    });
-  }
 
-  signUp() {
-    if (this.signupForm.valid) {
-      const { username, email, password, phoneNumber } = this.signupForm.value;
-      const post = {
-        userModel: {
-          name: username,
-          email: email,
-          phoneNumber: phoneNumber,
-          password: password
-        },
-        fcmModel: {
-          fcmtoken: localStorage.getItem("fcmToken")
-        }
-      };
-
-      this.api.CreateNew(post).subscribe({
-        next: (res: any) => {
-          console.log('API Response:', res);
-          localStorage.setItem('email', res['Email']);
-          this.isPopupOpen = true;
-          this.signupForm = false
-          this.signupForm.reset();
-          this.serverError = null;
-        },
-        error: (err) => {
-          this.serverError = this.getErrorMessage(err);
-          console.error("HTTP Error:", err.message);
-        }
-      });
-    }
   }
 
   getErrorMessage(error: any): string {
@@ -67,39 +38,68 @@ export class SignUpComponent {
       return 'Resource not found';
     } else if (error.status === 500) {
       return 'Server error';
+    } else if (error === "All fields are required.") {
+      return 'All fields are required.';
+    }
+    else if (error === "vjId Name is required.") {
+      return 'vjId Name is required.';
     } else {
       return 'An unexpected error occurred';
     }
   }
 
-  submitVjIdName() {
-    if (!this.vjIdName) {
-      this.backendError = 'vjId Name is required.';
-      return;
-    }
-
-    this.backendError = '';
-
-    const postPayload = { vjId: this.vjIdName, email: localStorage.getItem('email') };
-
-
-    this.api.GenerateName(postPayload).subscribe({
-      next: (res: any) => {
-        this.isPopupOpen = false;
-        this.router.navigate(['/home']).then(() => {
-          this.location.replaceState('/home');
-        });
-      },
-      error: (err: any) => {
-        this.backendError = err.error?.message || 'ID already in use.';
-      }
-    });
+  onSubmit() {
+    this.isPopupOpen = true;
+    // if (this.name && this.email && this.phoneNumber && this.password) {
+    //   this.isPopupOpen = true;
+    //   this.serverError = null
+    // } else {
+    //   this.isPopupOpen = false;
+    //   this.serverError = this.getErrorMessage('All fields are required.');
+    // }
   }
 
+  onSubmitName() {
+    // if (this.name && this.email && this.phoneNumber && this.password && this.username) {
+      // const post = {
+      //   userModel: {
+      //     "name": this.name,
+      //     "email": this.email,
+      //     "phoneNumber": this.phoneNumber,
+      //     "password": this.password,
+      //     "userName": this.username
+      //   },
+      //   fcmModel: {
+      //     fcmtoken: localStorage.getItem("fcmToken")
+      //   }
+      // };
 
+      // this.api.CreateNew(post).subscribe({
+      //   next: (res: any) => {
+      //     localStorage.setItem('email', res['Email']);
+          this.isPopupOpen = false;
+          this.router.navigate(['/home']).then(() => {
+            this.location.replaceState('/home');
+          });
+      //     this.serverError = null;
+      //   },
+      //   error: (err) => {
+      //     this.serverError1 = this.getErrorMessage(err);
+      //   }
+      // });
+
+    // } else {
+      // this.serverError1 = this.getErrorMessage('Name is required.');
+    // }
+  }
+
+  closePopup() {
+    this.isPopupOpen = false;
+  }
 
   goToLogin(): void {
     this.router.navigate(['/login']);
   }
+
 
 }

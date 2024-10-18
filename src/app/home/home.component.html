@@ -1,70 +1,81 @@
-<div class="header" [ngClass]="{ 'dark-mode': isDarkMode, 'hidden-header': isHeaderHidden }">
-  <div class="app-name">
-    <i class="bi bi-vimeo" style="font-size: 20px; color: #ff008b;"></i>
-  </div>
-  <div class="buttons">
-    <!-- Search Icon and Box -->
-    <div class="search-container">
-      <i class="fas fa-search search-icon" (click)="toggleSearchBox()"></i>
-      <div *ngIf="showSearchBox" class="search-box">
-        <input type="text" placeholder="Search..." />
+<div style="background-color: #ffffff; display: flex; flex-direction: column; height: 100vh;">
+  <!-- Header Section -->
+  <div class="header" [ngClass]="{'hidden-header': isHeaderHidden }">
+    <div class="buttons">
+      <!-- Search Box aligned to the left -->
+      <div class="search-container">
+        <div class="search-box">
+          <input type="text" placeholder="Account, Product Search..." />
+        </div>
+      </div>
+
+      <!-- Cart Icon aligned to the right corner -->
+      <div class="cart-icon-container" (click)="goToCart()">
+        <i class="bi bi-minecart-loaded"></i>
+        <span class="cart-count" *ngIf="cartCount > 0">{{ cartCount }}</span>
       </div>
     </div>
-
-    <!-- Dark Mode Toggle Icons -->
-    <i class="bi bi-brightness-high-fill" (click)="toggleDarkMode()" *ngIf="!isDarkMode"></i>
-    <i class="bi bi-moon-fill" (click)="toggleDarkMode()" *ngIf="isDarkMode"></i>
-
-    <!-- Cart Icon with Count -->
-    <div class="cart-icon-container" (click)="goToCart()">
-      <i class="bi bi-minecart-loaded"></i>
-      <span class="cart-count" *ngIf="cartCount > 0">{{ cartCount }}</span>
-    </div>
   </div>
-</div>
 
-<!-- Body Section -->
-<div class="body-section" (scroll)="onScroll($event)">
-  <div class="post" *ngFor="let item of posts">
-    <!-- User Profile Section inside the post -->
-    <div class="user-profile">
-      <span class="user-name">{{ item.user.name }}</span>
-      <img [src]="item.user.profileImage" alt="User Profile" class="profile-image">
-    </div>
-
-    <!-- Post Image -->
-    <img [src]="item.image" alt="Post Image" class="post-image">
-
-    <!-- Post Date -->
-    <p>{{ item.date | date: 'medium' }}</p>
-
-    <!-- Action Icons -->
-    <div class="actions">
-      <i [ngClass]="item.liked ? 'bi bi-heart-fill' : 'bi bi-heart'" (click)="item.liked = !item.liked"></i>
-      <i class="bi bi-chat" title="Comment" (click)="toggleCommentPopup(item)"></i>
-      <i [ngClass]="item.bookmarked ? 'bi bi-bookmark-fill' : 'bi bi-bookmark'"
-        (click)="item.bookmarked = !item.bookmarked"></i>
-      <i [ngClass]="item.inCart ? 'bi bi-cart-fill' : 'bi bi-cart'" (click)="addProductToCart(item)" tabindex="0"
-        role="button"></i>
-    </div>
-
-    <!-- Comment Popup -->
-    <div *ngIf="activeCommentItem" class="comment-popup">
-      <div class="popup-header">
-        <i class="bi bi-arrow-left-short" (click)="closeCommentPopup()"></i>
-        <span class="popup-title">Comments</span>
+  <!-- Body Section -->
+  <div class="body-section" (scroll)="onScroll($event)">
+    <div class="post" *ngFor="let item of posts">
+      <!-- User Profile Section inside the post -->
+      <div class="user-profile">
+        <span class="user-name">{{ item.user.name }}</span>
+        <img [src]="item.user.profileImage" alt="User Profile" class="profile-image">
       </div>
-      <div class="popup-content">
-        <div class="comment-list">
-          <div *ngFor="let comment of activeCommentItem.comments.slice().reverse()" class="comment-item">
-            <p><strong>{{ comment.user.name }}:</strong> {{ comment.text }}</p>
+
+      <!-- Post Image -->
+      <img [src]="item.image" alt="Post Image" class="post-image">
+
+      <!-- Post Date -->
+      <p>{{ item.date | date: 'medium' }}</p>
+
+      <!-- Action Icons -->
+      <div class="actions">
+        <i [ngClass]="item.liked ? 'bi bi-heart-fill' : 'bi bi-heart'" (click)="item.liked = !item.liked"></i>
+        <i class="bi bi-chat" title="Comment" (click)="toggleCommentPopup(item)"></i>
+        <i [ngClass]="item.bookmarked ? 'bi bi-bookmark-fill' : 'bi bi-bookmark'"
+          (click)="item.bookmarked = !item.bookmarked"></i>
+        <i [ngClass]="item.inCart ? 'bi bi-cart-fill' : 'bi bi-cart'" (click)="addProductToCart(item)" tabindex="0"
+          role="button"></i>
+      </div>
+
+      <!-- Comment Popup -->
+      <div *ngIf="activeCommentItem" class="comment-popup">
+        <div class="popup-header">
+          <i class="bi bi-arrow-left-short" (click)="closeCommentPopup()"></i>
+          <span class="popup-title">Comments</span>
+        </div>
+        <div class="popup-content">
+          <div class="comment-list">
+            <div *ngFor="let comment of activeCommentItem.comments.slice().reverse()" class="comment-item">
+              <p><strong>{{ comment.user.name }}:</strong> {{ comment.text }}</p>
+            </div>
+          </div>
+          <div class="comment-input-container">
+            <textarea [(ngModel)]="newComment" placeholder="Add a comment..." class="comment-input"></textarea>
+            <i class="bi bi-send" (click)="addComment(activeCommentItem)"></i>
           </div>
         </div>
-        <div class="comment-input-container">
-          <textarea [(ngModel)]="newComment" placeholder="Add a comment..." class="comment-input"></textarea>
-          <i class="bi bi-send" (click)="addComment(activeCommentItem)"></i>
-        </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Footer Section -->
+  <div class="footer" *ngIf="showFooter">
+    <div class="icon-container" (click)="navigateTo('home')">
+      <i class="bi bi-house-door" title="Home"></i>
+    </div>
+    <div class="icon-container" (click)="createPost()">
+      <i class="bi bi-plus-square" title="Create Post"></i>
+    </div>
+    <div class="icon-container" (click)="navigateTo('chatpage')">
+      <i class="bi bi-chat" title="Chat"></i>
+    </div>
+    <div class="icon-container" (click)="navigateTo('profile')">
+      <i class="bi bi-person" title="Profile"></i>
     </div>
   </div>
 </div>

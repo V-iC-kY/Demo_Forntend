@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { PushNotificationService } from './pushservice';
 import { Router } from '@angular/router';
-import { CartItem, CartService } from './cart.service';
 
 @Component({
   selector: 'app-root',
@@ -10,21 +9,9 @@ import { CartItem, CartService } from './cart.service';
 })
 export class AppComponent {
 
+  showFooter = true;
 
-  constructor(private token: PushNotificationService, private router: Router, private cartService: CartService) {
+  constructor(private token: PushNotificationService, private router: Router) {
     // this.token.getToken()
   }
-
-  openChat(itemId: number) {
-    this.router.navigate(['/chatpage']);
-  }
-
-  navigateTo(route: string): void {
-    this.router.navigate([route]);
-  }
-
-  createPost(): void {
-    console.log('Create post clicked');
-  }
-  
 }

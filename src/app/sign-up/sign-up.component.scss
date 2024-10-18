@@ -1,174 +1,87 @@
-.signup-box {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 400px;
-  padding: 40px;
-  transform: translate(-50%, -50%);
-  background: rgba(211, 37, 102, 0.84);
-  box-sizing: border-box;
-  box-shadow: 0 15px 25px rgb(153 80 114 / 99%);
-  border-radius: 10px;
+ion-content {
+  --background: white;
+  color: black;
+  --offset-top: 0px;
+  --offset-bottom: 0px;
+  --keyboard-offset: 0px !important;
 }
 
-.signup-box h2 {
-  margin: 0 0 30px;
-  padding: 0;
-  color: #fff;
+
+.signup-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 0px 20px;
+  background-color: white;
+  color: black;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.logo-container {
   text-align: center;
+  margin-bottom: 20px;
 }
 
-.user-box {
-  position: relative;
-  margin-bottom: 30px;
+.book-icon {
+  font-size: 48px;
+  color: #ffd700;
 }
 
-.user-box input {
-  width: 100%;
-  padding: 10px 0;
-  font-size: 16px;
-  color: #fff;
-  margin-bottom: 0;
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: black;
+}
+
+ion-item {
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  --background: transparent;
+  color: black;
+}
+
+ion-input {
+  --padding-start: 10px;
+  --padding-end: 10px;
   border: none;
-  border-bottom: 1px solid #fff;
-  outline: none;
-  background: transparent;
-}
-
-.user-box label {
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 10px 0;
-  font-size: 16px;
-  color: #fff;
-  pointer-events: none;
-  transition: .5s;
-}
-
-.user-box input:focus~label,
-.user-box input:valid~label {
-  // top: -20px;
-  // left: 0;
-  // color: #03e9f4;
-  // font-size: 12px;
-  display: none;
-}
-
-form small {
-  display: block;
-  color: rgb(17, 17, 17);
-  font-size: 12px;
-  margin: 10px;
-}
-
-.signup-box a {
-  position: relative;
-  display: inline-block;
-  padding: 10px 20px;
-  color: #03e9f4;
-  font-size: 16px;
-  text-decoration: none;
-  text-transform: uppercase;
-  overflow: hidden;
-  transition: .5s;
-  margin-top: 40px;
-  letter-spacing: 4px;
-}
-
-.signup-box a:hover {
-  background: #f1f1f1;
-  color: #000000;
   border-radius: 5px;
-  box-shadow: 0 0 5px #ffffff, 0 0 25px #ffffff, 0 0 50px #ffffff, 0 0 100px #ffffff;
+  color: black;
 }
 
-.signup-box a span {
-  position: absolute;
-  display: block;
+/* Focus state for ion-input */
+ion-input:focus {
+  --border-width: 2px;
+  --border-color: #ffd700;
+  --background: #f9f9f9;
+  outline: none;
+  border-radius: 5px;
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
 }
 
-.signup-box a span:nth-child(1) {
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #ffffff);
-  animation: btn-anim1 1s linear infinite;
+.signup-button {
+  --background: #ffd700;
+  --color: black;
+  margin-top: 20px;
 }
 
-.signup-box a span:nth-child(2) {
-  top: -100%;
-  right: 0;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(180deg, transparent, #ffffff);
-  animation: btn-anim2 1s linear infinite;
-  animation-delay: .25s;
+.terms {
+  font-size: 12px;
+  text-align: center;
+  margin-top: 20px;
+  color: black;
 }
 
-.signup-box a span:nth-child(3) {
-  bottom: 0;
-  right: -100%;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(270deg, transparent, #ffffff);
-  animation: btn-anim3 1s linear infinite;
-  animation-delay: .5s;
+.social-login {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
-.signup-box a span:nth-child(4) {
-  bottom: -100%;
-  left: 0;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(360deg, transparent, #ffffff);
-  animation: btn-anim4 1s linear infinite;
-  animation-delay: .75s;
-}
-
-@keyframes btn-anim1 {
-  0% {
-    left: -100%;
-  }
-
-  50%,
-  100% {
-    left: 100%;
-  }
-}
-
-@keyframes btn-anim2 {
-  0% {
-    top: -100%;
-  }
-
-  50%,
-  100% {
-    top: 100%;
-  }
-}
-
-@keyframes btn-anim3 {
-  0% {
-    right: -100%;
-  }
-
-  50%,
-  100% {
-    right: 100%;
-  }
-}
-
-@keyframes btn-anim4 {
-  0% {
-    bottom: -100%;
-  }
-
-  50%,
-  100% {
-    bottom: 100%;
-  }
+.social-login ion-button {
+  --padding-start: 10px;
+  --padding-end: 10px;
 }
 
 .login-link {
@@ -176,223 +89,79 @@ form small {
   margin-top: 20px;
 }
 
-.login-link p {
-  font-size: 14px;
-  color: #ffffff;
-  display: inline;
-}
-
 .login-link a {
-  color: #03e9f4;
+  color: #007bff;
   text-decoration: none;
-  cursor: pointer;
-  font-weight: bold;
-  display: inline;
 }
 
-.login-link a:hover {
-  text-decoration: underline;
+.invalid {
+  border: 2px solid red;
 }
 
-.modal {
-  display: block;
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+
+.popup-overlay {
   position: fixed;
-  z-index: 1;
-  left: 0;
   top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Semi-transparent black */
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 999;
+  /* Make sure it's on top of other content */
 }
 
-.modal-content {
-  background: rgba(0, 0, 0, .5);
-  padding: 40px;
-  border: none;
-  border-radius: 10px;
-  box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
-  width: 400px;
-  text-align: center;
+/* Popup form container */
+.popup-form {
+  background-color: white;
+  width: 90%;
+  max-width: 400px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  /* Ensure it's above the overlay */
 }
 
-.modal-content h3 {
-  margin: 0 0 30px;
-  padding: 0;
-  color: #fff;
+/* Styling for the input items within the popup */
+.popup-form ion-item {
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  --background: transparent;
+  color: black;
+  margin-bottom: 15px;
 }
 
-.modal-content input {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  color: #fff;
-  margin-bottom: 20px;
-  border: none;
-  border-bottom: 1px solid #fff;
-  outline: none;
-  background: transparent;
+/* Button styling */
+.popup-form .signup-button {
+  --background: #ffd700;
+  --color: black;
+  margin-top: 20px;
 }
 
-.modal-content input::placeholder {
-  color: #fff;
-}
-
-.modal-content small {
-  display: block;
+/* Error text styling */
+.error-text {
   color: red;
   font-size: 12px;
-  margin: 20px;
+  margin-top: 5px;
 }
 
-.modal-content button {
-  margin-top: 10px;
-  padding: 10px 20px;
-  background-color: #03e9f4;
-  border: none;
-  color: white;
-  cursor: pointer;
-  transition: 0.3s;
-  font-size: 16px;
-}
-
-.modal-content button:hover {
-  background-color: #027a8b;
-}
-
-.modal-content .close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.modal-content .close:hover,
-.modal-content .close:focus {
-  color: #fff;
-}
-
-/* Base styles for animated buttons */
-.animated-button {
-  position: relative;
-  display: inline-block;
-  padding: 10px 20px;
-  color: #03e9f4;
-  font-size: 16px;
-  text-decoration: none;
-  text-transform: uppercase;
-  overflow: hidden;
-  transition: .5s;
-  margin-top: 20px;
-  /* Adjust margin as needed */
-  letter-spacing: 4px;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-}
-
-/* Hover effect for the button */
-.animated-button:hover {
-  background: #056b70;
-  color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4, 0 0 100px #03e9f4;
-}
-
-/* Span elements for animation */
-.animated-button span {
+/* Close button for the popup */
+.close-popup-button {
   position: absolute;
-  display: block;
-}
-
-.animated-button span:nth-child(1) {
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #03e9f4);
-  animation: btn-anim1 1s linear infinite;
-}
-
-.animated-button span:nth-child(2) {
-  top: -100%;
-  right: 0;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(180deg, transparent, #03e9f4);
-  animation: btn-anim2 1s linear infinite;
-  animation-delay: .25s;
-}
-
-.animated-button span:nth-child(3) {
-  bottom: 0;
-  right: -100%;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(270deg, transparent, #03e9f4);
-  animation: btn-anim3 1s linear infinite;
-  animation-delay: .5s;
-}
-
-.animated-button span:nth-child(4) {
-  bottom: -100%;
-  left: 0;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(360deg, transparent, #03e9f4);
-  animation: btn-anim4 1s linear infinite;
-  animation-delay: .75s;
-}
-
-/* Keyframes for the animations */
-@keyframes btn-anim1 {
-  0% {
-    left: -100%;
-  }
-
-  50%,
-  100% {
-    left: 100%;
-  }
-}
-
-@keyframes btn-anim2 {
-  0% {
-    top: -100%;
-  }
-
-  50%,
-  100% {
-    top: 100%;
-  }
-}
-
-@keyframes btn-anim3 {
-  0% {
-    right: -100%;
-  }
-
-  50%,
-  100% {
-    right: 100%;
-  }
-}
-
-@keyframes btn-anim4 {
-  0% {
-    bottom: -100%;
-  }
-
-  50%,
-  100% {
-    bottom: 100%;
-  }
-}
-
-.error-message small {
-  color: red;
-  font-weight: bold;
+  top: 0px;
+  right: 1px;
+  font-size: 18px;
+  cursor: pointer;
+  color: black;
 }

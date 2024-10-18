@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ApiService } from '../api.service';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,106 +8,89 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
-  loginForm: any;
-  otpForm: any;
-  showOTP: boolean = false;
-  showError: boolean = false;
-  backendError: string | null = null;
+
+  phoneNumber: string = '';
+  password: string = '';
+  username: string = '';
+  emailInvalid: boolean = false;
+  passwordInvalid: boolean = false;
+  serverError: string | null = null;
+  showOTP = false;
+  otp: string[] = ['', '', '', ''];
   location: any;
+  backendError: string = '';
 
-  constructor(private api: ApiService, private fb: FormBuilder, private router: Router) { }
+  constructor(private api: ApiService, private fb: FormBuilder, private router: Router) {
 
-  ngOnInit(): void {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]]
-    });
-
-    this.otpForm = this.fb.group({
-      otp1: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(1)]],
-      otp2: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(1)]],
-      otp3: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(1)]],
-      otp4: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(1)]]
-    });
   }
 
-  login() {
-    // if (this.loginForm.invalid) {
-    //   this.loginForm.markAllAsTouched();
-    //   return;
-    // }
+  onLogin() {
+    if (this.phoneNumber && this.password || this.username && this.password) {
+      const post = {
+        userModel: {
+          "phoneNumber": this.phoneNumber,
+          "username": this.username,
+          "password": this.password
+        },
+        fcmModel: {
+          fcmtoken: localStorage.getItem("fcmToken")
+        }
+      };
 
-    // const post = {
-    //   userModel: {
-    //     email: this.loginForm.value.email,
-    //     phoneNumber: this.loginForm.value.phoneNumber
-    //   },
-    //   fcmModel: {
-    //     fcmtoken: localStorage.getItem("fcmToken")
-    //   }
-    // };
+      this.api.Login(post).subscribe({
+        next: (res) => {
+          this.showOTP = true;
+        },
+        error: (err) => {
+          this.backendError = err.message;
+        }
+      });
+    } else {
+      this.backendError = 'All fields are required.';
 
-    // this.api.Login(post).subscribe({
-    //   next: (res) => {
-        this.showOTP = true;
-    //     this.showError = false;
-        this.loginForm = false
-    //   },
-    //   error: (err) => {
-    //     this.showError = true;
-    //     console.error("HTTP Error:", err.message);
-    //   }
-    // });
+    }
   }
 
-  submitOTP() {
-    // this.backendError = null;
+  goToForgotPassword() {
 
-    // if (this.otpForm.invalid) {
-    //   console.log('OTP form is invalid');
-    //   this.otpForm.markAllAsTouched();
-    //   return;
-    // }
+  }
 
-    // const otp = `${this.otpForm.value.otp1}${this.otpForm.value.otp2}${this.otpForm.value.otp3}${this.otpForm.value.otp4}`;
-    // const email = localStorage.getItem('email');
-
-    // const postPayload = { otp, email };
-
-    // this.api.ValidateOtp(postPayload).subscribe({
-    //   next: (res: any) => {
-    //     this.showOTP = false;
-    //     this.otpForm.reset();
+  verifyOtp() {
+    const otpCode = this.otp.join('');
+    this.api.ValidateOtp(otpCode).subscribe({
+      next: (res: any) => {
         this.router.navigate(['/home']).then(() => {
           this.location.replaceState('/home');
         });
-    //   },
-    //   error: (err: any) => {
-    //     console.log('Error:', err);
-        
-    //     if (err.error && err.error.message) {
-    //       this.backendError = err.error.message;  
-    //     } else {
-    //       this.backendError = 'An error occurred while verifying OTP. Please try again.';
-    //     }
-    //   }
-    // });
-}
+      },
+      error: (err => {
+        this.backendError = 'An error occurred while verifying OTP. Please try again.';
+      })
+    })
 
-  moveFocus(event: Event, nextField: string | null) {
-    const input = event.target as HTMLInputElement;
+  }
 
-    if (nextField) {
-      const nextInput = document.querySelector(`[formControlName="${nextField}"]`) as HTMLInputElement;
-      if (nextInput) {
-        nextInput.focus();
+  goToSignup() {
+    this.router.navigate(['/signup']);
+  }
+
+  resendOtp() {
+    console.log('Resending OTP...');
+    this.otp = ['', '', '', ''];
+  }
+
+  moveFocus(event: any, index: number) {
+    const nextInput = event.target.nextElementSibling;
+    if (nextInput && event.target.value.length === 1) {
+      nextInput.focus();
+    } else if (event.target.value.length === 0 && index > 0) {
+      const previousInput = event.target.previousElementSibling;
+      if (previousInput) {
+        previousInput.focus();
       }
     }
   }
 
-  signUp() {
-    this.router.navigate(['/signup']);
-  }
 }
