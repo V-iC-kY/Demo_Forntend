@@ -50,23 +50,18 @@
   display: flex;
   overflow-y: auto;
   flex-direction: column;
-  padding: 10px;
+  margin-top: 20px;
   height: calc(100vh - 35px);
-  /* Adjusting for header height */
 
-  /* Adding some styles for post */
   .post {
     margin: 20px 0;
     padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
     background-color: #fff;
 
     .user-profile {
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      /* Aligning to start */
 
       .user-name {
         font-weight: bold;
